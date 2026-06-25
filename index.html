@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="言和13周年 · 洛天依14周年 — 1314·一生一世 纪念网页" />
+  <meta property="og:title" content="1314·一生一世" />
+  <meta property="og:description" content="言和13周年 · 洛天依14周年纪念" />
+  <meta property="og:type" content="website" />
+  <title>1314·一生一世 — 言和13周年 · 洛天依14周年</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- 背景拼贴墙 -->
+  <div class="bg-collage">
+    <div class="bg-side bg-yanhe">
+      <div class="bg-img bg-v3" style="background-image: url('/assets/images/yanhe_v3.webp');"></div>
+      <div class="bg-img bg-ai" style="background-image: url('/assets/images/yanhe_AI.webp');"></div>
+      <div class="bg-overlay" style="background: linear-gradient(135deg, rgba(0,255,204,0.15), rgba(0,15,10,0.30));"></div>
+    </div>
+    <div class="bg-divider"></div>
+    <div class="bg-side bg-tianyi">
+      <div class="bg-img bg-ai" style="background-image: url('/assets/images/tianyi_AI.webp');"></div>
+      <div class="bg-img bg-v3" style="background-image: url('/assets/images/tianyi_v3.webp');"></div>
+      <div class="bg-overlay" style="background: linear-gradient(135deg, rgba(0,15,30,0.30), rgba(102,204,255,0.15));"></div>
+    </div>
+    <div class="bg-birthday-glow"></div>
+  </div>
+
+  <!-- ===== Section 1: Hero ===== -->
+  <section id="hero" class="section hero">
+    <div class="hero-content">
+      <div class="hero-date">7.11 — 7.12</div>
+      <h1 class="hero-title">
+        <span style="color:#00FFCC;text-shadow:0 0 30px rgba(0,255,204,0.4);">13</span>
+        <span style="color:#66CCFF;text-shadow:0 0 30px rgba(102,204,255,0.4);">14</span>
+        <span class="hero-heart">·</span>
+        <span class="hero-sub-title">一生一世</span>
+      </h1>
+      <p class="hero-subtitle">言和13周年 · 洛天依14周年</p>
+      <div class="hero-avatars">
+        <div class="hero-avatar placeholder" data-char="yanhe" style="border-color: #00FFCC;color:#00FFCC;">言和</div>
+        <span class="hero-plus">&amp;</span>
+        <div class="hero-avatar placeholder" data-char="tianyi" style="border-color: #66CCFF;color:#66CCFF;">洛天依</div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>向下滚动</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ===== Section 2: 角色档案 ===== -->
+  <section id="characters" class="section characters">
+    <h2 class="section-title">她们是谁</h2>
+    <p class="section-desc">十余年歌声相伴，两位虚拟歌手的传奇</p>
+    <div class="characters-container" id="charactersContainer">
+      <!-- 由 JS 渲染 -->
+    </div>
+  </section>
+
+  <!-- ===== Section 3: 时光轴 ===== -->
+  <section id="timeline" class="section timeline">
+    <h2 class="section-title">一路相伴</h2>
+    <p class="section-desc">从出道至今，那些重要的时刻</p>
+    <div class="timeline-container" id="timelineContainer">
+      <!-- 由 JS 渲染 -->
+    </div>
+  </section>
+
+  <!-- ===== Section 4: 经典作品 ===== -->
+  <section id="songs" class="section songs">
+    <h2 class="section-title">经典合唱</h2>
+    <p class="section-desc">那些回荡在记忆中的旋律</p>
+    <div class="songs-container" id="songsContainer">
+      <!-- 由 JS 渲染 -->
+    </div>
+  </section>
+
+  <!-- ===== Section 5: 1314 主题区 ===== -->
+  <section id="theme1314" class="section theme1314">
+    <div class="theme1314-content">
+      <div class="theme-numbers">
+        <span class="theme-num" style="color: #00FFCC;text-shadow:0 0 40px rgba(0,255,204,0.5);">13</span>
+        <span class="theme-heart">♥</span>
+        <span class="theme-num" style="color: #66CCFF;text-shadow:0 0 40px rgba(102,204,255,0.5);">14</span>
+      </div>
+      <h2 class="section-title" style="font-size: 3rem;">一生一世</h2>
+      <p class="theme-poem">
+        十三年，是青涩到坚定<br/>
+        十四年，是初心到永恒<br/>
+        1314，不止是数字<br/>
+        是一起走过的每一个春秋
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== Section 6: 今年贺曲 ===== -->
+  <section id="fanSongs" class="section fan-songs">
+    <h2 class="section-title">今年贺曲</h2>
+    <p class="section-desc">粉丝们献上的生日礼物</p>
+    <div class="songs-container" id="fanSongsContainer">
+      <!-- 由 JS 渲染 -->
+    </div>
+  </section>
+
+  <!-- ===== Section 7: 倒计时 ===== -->
+  <section id="countdown" class="section countdown">
+    <h2 class="section-title">期待这一天</h2>
+    <div class="countdown-dual">
+      <!-- 言和倒计时 -->
+      <div class="countdown-box" style="border-color: #00FFCC;">
+        <h3 class="countdown-name" style="color: #00FFCC;">言和 13周年</h3>
+        <div class="countdown-display">
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdYanheDays">00</span>
+            <span class="countdown-label">天</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdYanheHours">00</span>
+            <span class="countdown-label">时</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdYanheMinutes">00</span>
+            <span class="countdown-label">分</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdYanheSeconds">00</span>
+            <span class="countdown-label">秒</span>
+          </div>
+        </div>
+      </div>
+      <!-- 洛天依倒计时 -->
+      <div class="countdown-box" style="border-color: #66CCFF;">
+        <h3 class="countdown-name" style="color: #66CCFF;">洛天依 14周年</h3>
+        <div class="countdown-display">
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdTianyiDays">00</span>
+            <span class="countdown-label">天</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdTianyiHours">00</span>
+            <span class="countdown-label">时</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdTianyiMinutes">00</span>
+            <span class="countdown-label">分</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdTianyiSeconds">00</span>
+            <span class="countdown-label">秒</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="countdown-event" id="countdownEvent">🎂 1314·一生一世 🎂</p>
+  </section>
+
+  <!-- ===== Section 8: 生日直播 ===== -->
+  <section id="live" class="section live">
+    <h2 class="section-title">🎥 生日直播</h2>
+    <p class="section-desc">言和×天依 同人生日会直播</p>
+    <div id="liveContainer" class="live-container">
+      <div class="live-placeholder">
+        <div class="live-icon">📺</div>
+        <div class="live-text">直播信息将在管理后台配置后显示</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Section 9: 祝福墙 ===== -->
+  <section id="wishes" class="section wishes">
+    <h2 class="section-title">写下你的祝福</h2>
+    <p class="section-desc">送给言和与洛天依的生日祝福</p>
+    <div class="wish-form" id="wishForm">
+      <input type="text" id="wishAuthor" placeholder="你的名字（选填）" maxlength="20" />
+      <textarea id="wishContent" placeholder="写下你的祝福..." maxlength="200" required></textarea>
+      <div class="wish-form-footer">
+        <div class="wish-colors">
+          <label>颜色：</label>
+          <label class="color-swatch" style="background:#00FFCC;" data-color="#00FFCC" title="言和应援色">
+            <input type="radio" name="wishColor" value="#00FFCC" />
+          </label>
+          <label class="color-swatch" style="background:#66CCFF;" data-color="#66CCFF" title="天依应援色">
+            <input type="radio" name="wishColor" value="#66CCFF" />
+          </label>
+          <label class="color-swatch gradient-swatch" data-color="gradient" title="渐变色组合" style="background: linear-gradient(135deg, #00FFCC, #66CCFF);">
+            <input type="radio" name="wishColor" value="gradient" checked />
+          </label>
+        </div>
+        <button id="wishSubmit" class="btn">发送祝福</button>
+      </div>
+    </div>
+    <div class="wishes-grid" id="wishesGrid">
+      <!-- 由 JS 渲染 -->
+    </div>
+  </section>
+
+  <!-- ===== Section 10: 页脚 ===== -->
+  <footer class="footer">
+    <p>言和 · 洛天依 1314·一生一世 纪念网页</p>
+    <p class="footer-links">
+      <a href="https://www.bilibili.com" target="_blank" rel="noopener">Bilibili</a>
+      <span class="footer-sep">·</span>
+      <a href="https://weibo.com" target="_blank" rel="noopener">微博</a>
+    </p>
+    <p class="footer-small">Made with ♥ for the VSinger community</p>
+  </footer>
+
+  <!-- ===== 管理后台入口 ===== -->
+  <div id="adminPanel" class="admin-panel"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

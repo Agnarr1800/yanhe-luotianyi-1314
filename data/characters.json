@@ -1,0 +1,32 @@
+[
+  {
+    "id": "tianyi",
+    "name": "洛天依",
+    "nameEn": "Luo Tianyi",
+    "color": "#66CCFF",
+    "colorAccent": "#66CCFF",
+    "height": "156cm",
+    "debutDate": "2012-07-12",
+    "anniversary": 14,
+    "voiceProvider": "山新",
+    "description": "中文VOCALOID第一位虚拟歌手，2012年7月12日正式出道。灰发绿瞳，温柔敏感中带着天然呆的可爱性格，被誉为「世界第一吃货殿下」。拥有治愈系嗓音，是首位登上央视春晚的中国虚拟歌手。",
+    "avatarUrl": "assets/images/luotianyi.jpg",
+    "representativeSongs": ["《普通DISCO》", "《权御天下》", "《达拉崩吧》", "《千年食谱颂》", "《勾指起誓》"],
+    "isPartner": true
+  },
+  {
+    "id": "yanhe",
+    "name": "言和",
+    "nameEn": "Yanhe",
+    "color": "#00FFCC",
+    "colorAccent": "#99FFFF",
+    "height": "170cm",
+    "debutDate": "2013-07-11",
+    "anniversary": 13,
+    "voiceProvider": "刘婧荦（kkryu）",
+    "description": "中文VOCALOID第二位虚拟歌手，2013年7月11日正式出道。白发蓝瞳，身高170cm，外表帅气内心温柔。以清爽中性的独特声线著称，擅长摇滚、电音与大气古风歌曲。名字取自「言辞温和」，与洛天依是最经典的搭档组合。",
+    "avatarUrl": "assets/images/yanhe.jpg",
+    "representativeSongs": ["《逆浪千秋》", "《冠世一战》", "《普通DISCO》", "《达拉崩吧》", "《刀剑春秋》"],
+    "isPartner": true
+  }
+]

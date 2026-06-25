@@ -1,0 +1,9 @@
+{
+  "name": "yanhe-luotianyi-1314",
+  "version": "1.0.0",
+  "description": "1314·一生一世 — 言和13周年 × 洛天依14周年 纪念网页",
+  "scripts": {
+    "dev": "echo 'Open index.html with a local server'",
+    "build": "echo 'Static site, no build needed'"
+  }
+}
