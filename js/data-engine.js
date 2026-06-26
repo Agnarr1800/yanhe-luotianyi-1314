@@ -29,7 +29,7 @@ let _baselineCache = {};
 async function loadBaseline(name) {
   if (_baselineCache[name]) return _baselineCache[name];
   try {
-    const resp = await fetch(`/data/${name}.json`);
+    const resp = await fetch(`data/${name}.json`);
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const data = await resp.json();
     _baselineCache[name] = data;
