@@ -66,7 +66,7 @@ export function renderSongs(container, songs) {
   }
 
   container.innerHTML = songs.map(s => `
-    <div class="song-card" data-song-id="${s.id}">
+    <div class="song-card" data-song-id="${s.id}" data-bvid="${s.bvid || ''}">
       <div class="song-card-header">
         <span class="song-title">${s.title}</span>
         <span class="song-meta">
@@ -76,7 +76,7 @@ export function renderSongs(container, songs) {
         <span class="song-expand-hint">hover 展开 ▶</span>
       </div>
       <div class="song-card-body">
-        ${s.bvid ? `<div class="song-player"><iframe src="https://player.bilibili.com/player.html?bvid=${s.bvid}&autoplay=0" allowfullscreen="true" frameborder="no" scrolling="no"></iframe></div>` : ''}
+        ${s.bvid ? '<div class="song-player"><div class="player-placeholder">▶ 悬停加载</div><iframe class="bilibili-player" allowfullscreen frameborder="no" scrolling="no"></iframe></div>' : ''}
         <div class="song-info">
           <div class="song-desc">${s.description || ''}</div>
           ${s.bilibiliUrl ? `<a class="song-link" href="${s.bilibiliUrl}" target="_blank" rel="noopener">在B站打开 ↗</a>` : ''}
@@ -95,7 +95,22 @@ export function renderSongs(container, songs) {
     });
   }, { threshold: 0.1 });
 
-  container.querySelectorAll('.song-card').forEach(el => observer.observe(el));
+  container.querySelectorAll('.song-card').forEach(el => {
+    observer.observe(el);
+
+    // 悬停时加载 iframe（避免折叠状态加载B站播放器导致无法播放）
+    const bvid = el.dataset.bvid;
+    const iframe = el.querySelector('.bilibili-player');
+    if (bvid && iframe) {
+      let loaded = false;
+      el.addEventListener('mouseenter', () => {
+        if (!loaded) {
+          iframe.src = `https://player.bilibili.com/player.html?bvid=${bvid}&autoplay=0`;
+          loaded = true;
+        }
+      }, { once: true });
+    }
+  });
 }
 
 function typeLabel(type) {
