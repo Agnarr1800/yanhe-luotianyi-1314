@@ -267,7 +267,7 @@ body {
 .timeline-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
 .timeline-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
 
-/* ===== Songs (全宽折叠卡片) ===== */
+/* ===== Songs (年份分组折叠) ===== */
 /* 歌曲区全宽 */
 .section.songs,
 .section.fan-songs {
@@ -276,15 +276,78 @@ body {
   background: rgba(10, 10, 30, 0.35);
   backdrop-filter: blur(1px);
 }
-
 .songs-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   max-width: 100%;
   width: 100%;
 }
 .empty-state { text-align: center; padding: 48px; color: var(--text-secondary); font-size: 1.1rem; }
+
+/* 年份组 */
+.song-year-group {
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+.song-year-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+  user-select: none;
+}
+.song-year-header:hover {
+  background: rgba(255,255,255,0.06);
+}
+.song-year-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--yanhe-color), var(--tianyi-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.song-year-count {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+.song-year-arrow {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  transition: transform 0.3s;
+}
+.song-year-body {
+  border-top: 1px solid var(--card-border);
+}
+
+/* 播放量等级标签 */
+.rank-badge {
+  display: inline-block;
+  padding: 1px 10px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.rank-hall {
+  background: linear-gradient(135deg, #c0c0c0, #e0e0e0);
+  color: #333;
+}
+.rank-legend {
+  background: linear-gradient(135deg, #d4a017, #f5d742);
+  color: #3a2e00;
+}
+.rank-myth {
+  background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff);
+  color: #1a0033;
+}
 
 .song-card {
   border-radius: 12px;
