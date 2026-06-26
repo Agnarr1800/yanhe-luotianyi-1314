@@ -1,6 +1,6 @@
 /**
  * admin.js — 管理后台
- * 入口：按 ` 键（反引号）或 URL 参数 ?admin，或点击右下角按钮
+ * 入口：按 \` 键（反引号）或 URL 参数 ?admin，或点击右下角按钮
  * 功能：登录 → CRUD 各数据区块 → 导入/导出/重置
  */
 
@@ -22,10 +22,10 @@ export function initAdmin() {
       toggleAdmin();
     }
   });
-}
 
-// 右下角浮动按钮
-addFloatingAdminBtn();
+  // 右下角浮动按钮
+  addFloatingAdminBtn();
+}
 
 // 右下角浮动入口按钮
 function addFloatingAdminBtn() {
@@ -116,7 +116,7 @@ async function buildAdminDashboard() {
   inner.innerHTML = `
     <h2 class="admin-title">⚙️ 管理后台</h2>
     <p style="text-align:center;color:var(--text-secondary);margin-bottom:24px;">
-      按 <kbd>`</kbd> 键关闭 | 修改后自动保存
+      按 <kbd>Ctrl+Shift+A</kbd> 关闭 | 修改后自动保存
     </p>
 
     <div class="admin-section">
