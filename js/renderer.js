@@ -65,40 +65,68 @@ export function renderSongs(container, songs) {
     return;
   }
 
-  container.innerHTML = songs.map(s => `
-    <div class="song-card" data-song-id="${s.id}" data-bvid="${s.bvid || ''}">
-      <div class="song-card-header">
-        <span class="song-title">${s.title}</span>
-        <span class="song-meta">
-          <span class="song-year">${s.year}</span>
-          <span class="song-type song-type-${s.type || 'original'}">${typeLabel(s.type)}</span>
-        </span>
-        <span class="song-expand-hint">hover 展开 ▶</span>
-      </div>
-      <div class="song-card-body">
-        ${s.bvid ? '<div class="song-player"><div class="player-placeholder">▶ 悬停加载</div><iframe class="bilibili-player" allowfullscreen frameborder="no" scrolling="no"></iframe></div>' : ''}
-        <div class="song-info">
-          <div class="song-desc">${s.description || ''}</div>
-          ${s.bilibiliUrl ? `<a class="song-link" href="${s.bilibiliUrl}" target="_blank" rel="noopener">在B站打开 ↗</a>` : ''}
-        </div>
-      </div>
-    </div>
-  `).join('');
+  // 按年份分组（降序）
+  const years = {};
+  songs.forEach(s => {
+    const y = s.year || '未知';
+    if (!years[y]) years[y] = [];
+    years[y].push(s);
+  });
+  const sortedYears = Object.keys(years).sort((a, b) => (b === '未知' ? -1 : Number(b) - Number(a)));
 
-  // 滚动动画
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+  let html = '';
+  sortedYears.forEach((year, yi) => {
+    const list = years[year];
+    const isFirst = yi === 0;
+    html += `
+    <div class="song-year-group">
+      <div class="song-year-header" data-year="${year}">
+        <span class="song-year-label">${year}</span>
+        <span class="song-year-count">${list.length} 首</span>
+        <span class="song-year-arrow">${isFirst ? '▼' : '▶'}</span>
+      </div>
+      <div class="song-year-body" style="display: ${isFirst ? 'block' : 'none'};">
+        ${list.map(s => `
+        <div class="song-card" data-song-id="${s.id}" data-bvid="${s.bvid || ''}">
+          <div class="song-card-header">
+            <span class="song-title">${s.title} ${renderRankBadge(s.rank)}</span>
+            <span class="song-meta">
+              <span class="song-type song-type-${s.type || 'original'}">${typeLabel(s.type)}</span>
+            </span>
+            <span class="song-expand-hint">hover 展开 ▶</span>
+          </div>
+          <div class="song-card-body">
+            ${s.bvid ? '<div class="song-player"><div class="player-placeholder">▶ 悬停加载</div><iframe class="bilibili-player" allowfullscreen frameborder="no" scrolling="no"></iframe></div>' : ''}
+            <div class="song-info">
+              <div class="song-desc">${s.description || ''}</div>
+              ${s.bilibiliUrl ? `<a class="song-link" href="${s.bilibiliUrl}" target="_blank" rel="noopener">在B站打开 ↗</a>` : ''}
+            </div>
+          </div>
+        </div>
+        `).join('')}
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+
+  // 年份折叠点击切换
+  container.querySelectorAll('.song-year-header').forEach(hdr => {
+    hdr.addEventListener('click', () => {
+      const body = hdr.nextElementSibling;
+      const arrow = hdr.querySelector('.song-year-arrow');
+      if (body.style.display === 'none') {
+        body.style.display = 'block';
+        arrow.textContent = '▼';
+      } else {
+        body.style.display = 'none';
+        arrow.textContent = '▶';
       }
     });
-  }, { threshold: 0.1 });
+  });
 
+  // 悬停加载 iframe
   container.querySelectorAll('.song-card').forEach(el => {
-    observer.observe(el);
-
-    // 悬停时加载 iframe（避免折叠状态加载B站播放器导致无法播放）
     const bvid = el.dataset.bvid;
     const iframe = el.querySelector('.bilibili-player');
     if (bvid && iframe) {
@@ -111,6 +139,15 @@ export function renderSongs(container, songs) {
       }, { once: true });
     }
   });
+}
+
+function renderRankBadge(rank) {
+  switch (rank) {
+    case 'myth': return '<span class="rank-badge rank-myth" title="播放量超过1000万">神话曲</span>';
+    case 'legend': return '<span class="rank-badge rank-legend" title="播放量超过100万">传说曲</span>';
+    case 'hall': return '<span class="rank-badge rank-hall" title="播放量超过10万">殿堂曲</span>';
+    default: return '';
+  }
 }
 
 function typeLabel(type) {
