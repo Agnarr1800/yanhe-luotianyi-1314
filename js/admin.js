@@ -24,6 +24,8 @@ export function initAdmin() {
   });
 }
 
+// 右下角浮动按钮
+addFloatingAdminBtn();
 
 // 右下角浮动入口按钮
 function addFloatingAdminBtn() {
