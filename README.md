@@ -59,4 +59,4 @@ npx serve .
 
 ## 部署
 
-推荐托管到 Vercel、Netlify 或 GitHub Pages，直接指向项目根目录即可。
+推荐托管到 Vercel、Netlify 或 GitHub Pages，直接指向项目根目录即可 。
