@@ -1,6 +1,6 @@
 /**
  * admin.js — 管理后台
- * 入口：Ctrl+Shift+A 或 URL 参数 ?admin
+ * 入口：按 ` 键（反引号）或 URL 参数 ?admin，或点击右下角按钮
  * 功能：登录 → CRUD 各数据区块 → 导入/导出/重置
  */
 
@@ -15,13 +15,52 @@ export function initAdmin() {
     setTimeout(showAdmin, 500);
   }
 
-  // 快捷键 Ctrl+Shift+A
+  // 快捷键：按 ` 键（反引号）打开管理后台
   document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+    if (e.key === '`' && !e.ctrlKey && !e.shiftKey && !e.altKey) {
       e.preventDefault();
       toggleAdmin();
     }
   });
+}
+
+// 右下角浮动按钮
+addFloatingAdminBtn();
+
+// 右下角浮动入口按钮
+function addFloatingAdminBtn() {
+  const btn = document.createElement('div');
+  btn.textContent = '🔧';
+  btn.title = '管理后台（按 ` 键打开）';
+  Object.assign(btn.style, {
+    position: 'fixed',
+    bottom: '20px',
+    right: '20px',
+    zIndex: '100',
+    width: '44px',
+    height: '44px',
+    borderRadius: '50%',
+    background: 'rgba(255,255,255,0.08)',
+    border: '1px solid rgba(255,255,255,0.15)',
+    backdropFilter: 'blur(8px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '1.3rem',
+    cursor: 'pointer',
+    transition: 'all 0.3s',
+    color: 'var(--text-secondary, #aaa)',
+  });
+  btn.addEventListener('mouseenter', () => {
+    btn.style.background = 'rgba(255,255,255,0.15)';
+    btn.style.transform = 'scale(1.1)';
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.background = 'rgba(255,255,255,0.08)';
+    btn.style.transform = 'scale(1)';
+  });
+  btn.addEventListener('click', toggleAdmin);
+  document.body.appendChild(btn);
 }
 
 function toggleAdmin() {
@@ -77,7 +116,7 @@ async function buildAdminDashboard() {
   inner.innerHTML = `
     <h2 class="admin-title">⚙️ 管理后台</h2>
     <p style="text-align:center;color:var(--text-secondary);margin-bottom:24px;">
-      按 <kbd>Ctrl+Shift+A</kbd> 关闭 | 修改后自动保存
+      按 <kbd>`</kbd> 键关闭 | 修改后自动保存
     </p>
 
     <div class="admin-section">
