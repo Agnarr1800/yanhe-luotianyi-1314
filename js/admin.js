@@ -344,6 +344,14 @@ function renderAdminSongs() {
           <option value="fan" ${s.type==='fan'?'selected':''}>贺曲/同人</option>
         </select>
       </div>
+      <div style="flex:1"><label>播放量</label>
+        <select data-song-idx="${i}" data-field="rank">
+          <option value="" ${!s.rank?'selected':''}>普通</option>
+          <option value="hall" ${s.rank==='hall'?'selected':''}>殿堂曲</option>
+          <option value="legend" ${s.rank==='legend'?'selected':''}>传说曲</option>
+          <option value="myth" ${s.rank==='myth'?'selected':''}>神话曲</option>
+        </select>
+      </div>
       <button class="admin-btn admin-btn-danger" data-song-del="${i}">✕</button>
     </div>
     <div class="admin-field">
@@ -368,7 +376,7 @@ function renderAdminSongs() {
 
 function addSongItem() {
   const maxId = _songData.reduce((m, s) => Math.max(m, s.id || 0), 0);
-  _songData.push({ id: maxId + 1, title: '新曲目', year: '2026', type: 'fan', bvid: '', bilibiliUrl: '', coverUrl: '', description: '' });
+  _songData.push({ id: maxId + 1, title: '新曲目', year: '2026', type: 'fan', rank: '', bvid: '', bilibiliUrl: '', coverUrl: '', description: '' });
   renderAdminSongs();
 }
 
