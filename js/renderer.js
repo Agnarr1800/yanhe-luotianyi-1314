@@ -133,7 +133,7 @@ export function renderSongs(container, songs) {
       let loaded = false;
       el.addEventListener('mouseenter', () => {
         if (!loaded) {
-          iframe.src = `https://player.bilibili.com/player.html?bvid=${bvid}&autoplay=0`;
+          iframe.src = `https://player.bilibili.com/player.html?bvid=${bvid}&autoplay=0&high_quality=1&as_wide=1`;
           loaded = true;
         }
       }, { once: true });
