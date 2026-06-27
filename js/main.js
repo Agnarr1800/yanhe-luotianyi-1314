@@ -78,7 +78,7 @@ async function renderLive() {
   if (config.recordBvid) {
     container.innerHTML = `
       <div class="live-player">
-        <iframe src="https://player.bilibili.com/player.html?bvid=${config.recordBvid}&autoplay=0" allowfullscreen frameborder="no" scrolling="no"></iframe>
+        <iframe src="https://player.bilibili.com/player.html?bvid=${config.recordBvid}&autoplay=0&high_quality=1&as_wide=1" allowfullscreen frameborder="no" scrolling="no"></iframe>
       </div>
       <p style="text-align:center;color:var(--text-secondary);margin-top:12px;">📼 录播回放</p>
     `;
