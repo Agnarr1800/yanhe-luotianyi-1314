@@ -154,6 +154,11 @@ async function buildAdminDashboard() {
     </div>
 
     <div class="admin-section">
+      <h3>📩 待审核曲目 <span id="pendingCount" style="font-size:0.85rem;color:var(--gold);"></span></h3>
+      <div id="adminPendingSongs"></div>
+    </div>
+
+    <div class="admin-section">
       <h3>🎥 生日直播/录播</h3>
       <div class="admin-field">
         <label>B站直播间ID（如 12345）</label>
@@ -188,6 +193,7 @@ async function buildAdminDashboard() {
   await loadAdminTimeline();
   await loadAdminSongs();
   await loadAdminWishes();
+  await loadAdminPendingSongs();
   await loadAdminLive();
 
   // 绑定事件
@@ -427,6 +433,82 @@ async function loadAdminWishes() {
 
 function saveAdminWishes() {
   alert('💬 祝福已保存（删除操作已即时生效）');
+}
+
+// ===== 待审核曲目 =====
+async function loadAdminPendingSongs() {
+  const container = document.getElementById('adminPendingSongs');
+  const countEl = document.getElementById('pendingCount');
+  if (!container) return;
+  const pending = (await engine.getData('pendingSongs')) || [];
+  const active = pending.filter(s => s.status === 'pending');
+  if (countEl) countEl.textContent = active.length ? `(${active.length} 条待审核)` : '';
+
+  if (!active.length) {
+    container.innerHTML = '<p style="color:var(--text-secondary);">暂无待审核曲目</p>';
+    return;
+  }
+
+  container.innerHTML = active.map((s, i) => `
+    <div style="padding:10px;border-radius:8px;background:rgba(255,255,255,0.04);margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;">
+        <div>
+          <strong>${s.title}</strong>
+          <span style="font-size:0.85rem;color:var(--text-secondary);margin-left:6px;">${s.year || ''}</span>
+          <span class="song-type" style="font-size:0.75rem;">${({original:'原创曲',cover:'翻唱',fan:'贺曲/同人'})[s.type]||'原创曲'}</span>
+          <span style="font-size:0.8rem;color:var(--gold);margin-left:6px;">→ ${s.section === 'fanSongs' ? '贺曲区' : '经典区'}</span>
+        </div>
+        <div style="display:flex;gap:4px;flex-shrink:0;">
+          <button class="admin-btn admin-btn-success" data-pending-approve="${i}" style="padding:4px 12px;">✓ 通过</button>
+          <button class="admin-btn admin-btn-danger" data-pending-reject="${i}" style="padding:4px 12px;">✕ 拒绝</button>
+        </div>
+      </div>
+      ${s.description ? `<div style="font-size:0.8rem;color:var(--text-secondary);margin-top:4px;">${s.description}</div>` : ''}
+      <div style="font-size:0.75rem;color:var(--text-secondary);margin-top:4px;">
+        ${s.submitter} · ${s.submittedAt} · ${s.bvid ? 'BVID: ' + s.bvid : ''}
+      </div>
+    </div>
+  `).join('');
+
+  // 通过
+  container.querySelectorAll('[data-pending-approve]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const idx = parseInt(btn.dataset.pendingApprove);
+      const pending = (await engine.getData('pendingSongs')) || [];
+      const song = pending[idx];
+      if (!song) return;
+      // 加入 songs 列表
+      const songs = (await engine.getData('songs')) || [];
+      const maxId = songs.reduce((m, s) => Math.max(m, s.id || 0), 0);
+      songs.push({
+        id: maxId + 1,
+        title: song.title,
+        year: song.year || '',
+        type: song.type || 'original',
+        bvid: song.bvid || '',
+        bilibiliUrl: song.bilibiliUrl || '',
+        description: song.description || '',
+      });
+      engine.saveData('songs', songs);
+      // 标记为已通过
+      song.status = 'approved';
+      engine.saveData('pendingSongs', pending);
+      if (window.__de1314?.refresh?.songs) window.__de1314.refresh.songs();
+      loadAdminPendingSongs();
+    });
+  });
+
+  // 拒绝
+  container.querySelectorAll('[data-pending-reject]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('确定拒绝这条推荐？')) return;
+      const idx = parseInt(btn.dataset.pendingReject);
+      const pending = (await engine.getData('pendingSongs')) || [];
+      pending[idx].status = 'rejected';
+      engine.saveData('pendingSongs', pending);
+      loadAdminPendingSongs();
+    });
+  });
 }
 
 // ===== 直播/录播配置 =====
