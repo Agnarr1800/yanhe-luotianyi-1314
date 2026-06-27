@@ -77,6 +77,7 @@
     <div class="songs-container" id="songsContainer">
       <!-- 由 JS 渲染 -->
     </div>
+    <button class="btn btn-submit-song" onclick="document.getElementById('submitSongModal').classList.add('active')">✚ 推荐歌曲</button>
   </section>
 
   <!-- ===== Section 5: 1314 主题区 ===== -->
@@ -104,6 +105,7 @@
     <div class="songs-container" id="fanSongsContainer">
       <!-- 由 JS 渲染 -->
     </div>
+    <button class="btn btn-submit-song" onclick="document.getElementById('submitSongModal').classList.add('active')">✚ 推荐贺曲</button>
   </section>
 
   <!-- ===== Section 7: 倒计时 ===== -->
@@ -211,6 +213,36 @@
 
   <!-- ===== 管理后台入口 ===== -->
   <div id="adminPanel" class="admin-panel"></div>
+
+  <!-- ===== 游客推荐歌曲弹窗 ===== -->
+  <div id="submitSongModal" class="modal-overlay">
+    <div class="modal-box">
+      <h2 class="modal-title">🎵 推荐歌曲</h2>
+      <p class="modal-desc">提交后管理员审核通过即可展示</p>
+      <div class="modal-form">
+        <input type="text" id="submitSongTitle" placeholder="歌曲名称 *" />
+        <input type="text" id="submitSongYear" placeholder="发布年份，如 2026" />
+        <input type="text" id="submitSongBvid" placeholder="B站 BVID，如 BV1xx411c7mD" />
+        <input type="url" id="submitSongUrl" placeholder="B站链接（可选）" />
+        <select id="submitSongType">
+          <option value="original">原创曲</option>
+          <option value="cover">翻唱</option>
+          <option value="fan">贺曲/同人</option>
+        </select>
+        <select id="submitSongSection">
+          <option value="songs">经典合唱区</option>
+          <option value="fanSongs">今年贺曲区</option>
+        </select>
+        <textarea id="submitSongDesc" placeholder="简单描述（可选）"></textarea>
+        <input type="text" id="submitSongAuthor" placeholder="你的名字（选填）" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn" onclick="document.getElementById('submitSongModal').classList.remove('active')">取消</button>
+        <button class="btn btn-primary" id="submitSongBtn">提交审核</button>
+      </div>
+      <p id="submitSongStatus" class="modal-status"></p>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script type="module" src="js/main.js"></script>
