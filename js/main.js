@@ -9,6 +9,7 @@ import ParticleSystem from './particles.js';
 import { startCountdown } from './countdown.js';
 import { initWishes, refreshWishes } from './wishes.js';
 import { initAdmin } from './admin.js';
+import { initSubmitSong } from './submit-song.js';
 
 async function main() {
   // 1. 粒子背景
@@ -53,7 +54,10 @@ async function main() {
   // 8. 祝福墙
   await initWishes();
 
-  // 9. 管理后台
+  // 9. 游客推荐歌曲
+  initSubmitSong();
+
+  // 10. 管理后台
   initAdmin();
 }
 
