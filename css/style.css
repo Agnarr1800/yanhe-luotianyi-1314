@@ -561,6 +561,56 @@ body {
 .footer-sep { margin: 0 8px; }
 .footer-small { font-size: 0.8rem; color: rgba(255,255,255,0.25); }
 
+/* ===== 推荐歌曲弹窗 ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 9998;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-box {
+  max-width: 480px;
+  width: 100%;
+  padding: 32px;
+  border-radius: 20px;
+  background: #1a1a2e;
+  border: 1px solid var(--card-border);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-title { font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 4px; }
+.modal-desc { font-size: 0.9rem; color: var(--text-secondary); text-align: center; margin-bottom: 20px; }
+.modal-form { display: flex; flex-direction: column; gap: 10px; }
+.modal-form input, .modal-form select, .modal-form textarea {
+  width: 100%; padding: 10px 14px;
+  border-radius: 10px; border: 1px solid var(--card-border);
+  background: rgba(255,255,255,0.05); color: var(--text-primary);
+  font-size: 0.95rem; font-family: var(--font-sans); outline: none;
+}
+.modal-form input:focus, .modal-form select:focus, .modal-form textarea:focus { border-color: var(--tianyi-color); }
+.modal-form textarea { min-height: 60px; resize: vertical; }
+.modal-actions { display: flex; gap: 12px; justify-content: center; margin-top: 16px; }
+.modal-status { text-align: center; margin-top: 10px; font-size: 0.9rem; min-height: 1.4em; }
+
+.btn-submit-song {
+  margin-top: 20px;
+  background: rgba(255,255,255,0.06);
+  border-color: var(--tianyi-color);
+  color: var(--tianyi-color);
+}
+.btn-submit-song:hover {
+  background: rgba(102,204,255,0.12);
+}
+.btn-primary { border-color: var(--yanhe-color); color: var(--yanhe-color); }
+.btn-primary:hover { background: rgba(0,255,204,0.12); }
+
 /* ===== Admin ===== */
 .admin-panel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); overflow-y: auto; padding: 24px; }
 .admin-panel.active { display: block; }
