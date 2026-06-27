@@ -18,6 +18,7 @@ const STORAGE_KEYS = {
   timeline: 'de1314_timeline',
   songs: 'de1314_songs',
   wishes: 'de1314_wishes',
+  pendingSongs: 'de1314_pendingSongs',
 };
 
 // 缓存已加载的基线数据
